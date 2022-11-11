@@ -36,5 +36,12 @@ new_window 'basic_behaviours' "ros2 launch as2_basic_behaviours all_basic_behavi
 new_window 'traj_generator' "ros2 launch trajectory_generator trajectory_generator_launch.py  \
     drone_id:=$drone_namespace "
 
+new_window 'teleop' "ros2 launch keyboard_teleoperation keyboard_teleoperation.launch.py \
+    drone_id:=$drone_namespace \
+    verbose:=true"
 
+new_window 'viewer' "gnome-terminal -x bash -c '\
+    ros2 run alphanumeric_viewer alphanumeric_viewer_node --ros-args -r  __ns:=/$drone_namespace'"
 
+# echo -e "Launched drone $drone_namespace. For attaching to the session, run: \n  \t $ tmux a -t $drone_namespace"
+tmux a -t :0

@@ -1,18 +1,24 @@
 #!/bin/bash
 
-DRONE_ID_NAMESPACE="drone_sim_dps_0"
+drone_namespace="drone0"
 
-mkdir rosbags 
+
+mkdir rosbags 2>/dev/null
 cd rosbags &&\
 ros2 bag record \
-"/$DRONE_ID_NAMESPACE/self_localization/odom" \
-"/$DRONE_ID_NAMESPACE/actuator_command/thrust" \
-"/$DRONE_ID_NAMESPACE/actuator_command/twist" \
-"/$DRONE_ID_NAMESPACE/motion_reference/trajectory" \
-"/$DRONE_ID_NAMESPACE/test1" \
-"/$DRONE_ID_NAMESPACE/test2" \
-"/$DRONE_ID_NAMESPACE/test3" \
-"/$DRONE_ID_NAMESPACE/test4" \
-"/$DRONE_ID_NAMESPACE/debug/traj_generated"
-#"/$DRONE_ID_NAMESPACE/image_raw" \
-#"/$DRONE_ID_NAMESPACE/aruco_gate_detector/gate_img_topic" \
+"/$drone_namespace/actuator_command/pose" \
+"/$drone_namespace/actuator_command/thrust" \
+"/$drone_namespace/actuator_command/twist" \
+"/$drone_namespace/controller/info" \
+"/$drone_namespace/motion_reference/pose" \
+"/$drone_namespace/motion_reference/twist" \
+"/$drone_namespace/platform/info" \
+"/$drone_namespace/self_localization/pose" \
+"/$drone_namespace/self_localization/twist" \
+"/$drone_namespace/sensor_measurements/battery" \
+"/$drone_namespace/sensor_measurements/imu" \
+"/$drone_namespace/sensor_measurements/odom" \
+"/$drone_namespace/ground_truth/pose" \
+"/tf" \
+"/tf_static" \
+--qos-profile-overrides-path $(pwd)/../reliability_override.yaml --include-hidden-topics
